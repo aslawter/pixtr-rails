@@ -1,9 +1,9 @@
-Rails.application.routes.draw do
-  get "/" => "galleries#index"
-  get "/galleries/new" => "galleries#new"
-  get "/galleries/:id" => "galleries#show"
-  get "/galleries/:id/edit" => "galleries#edit"
-  patch "/galleries/:id" => "galleries#update"
-  delete "/galleries/:id" => "galleries#destroy"
-  post "/galleries/" => "galleries#create"
+Rails.application.routes.draw do   root to: "galleries#index"
+
+  #get to: "galleries#index"
+  resources :galleries, only: [:show, :new, :create, :edit, :update,
+  :destroy]  do
+    get "/images/new" => "images#new"
+    post "/images" => "images#create"
   end
+end
