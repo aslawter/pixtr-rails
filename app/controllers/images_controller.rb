@@ -5,13 +5,31 @@ class ImagesController < ApplicationController
 	end
 
 	def create
-		image = Image.create
-		gallery = Gallery.find(params[:gallery_id])
-		
-		redirect_to "/galleries/#{gallery.id}"
+		@gallery = Gallery.find(params[:gallery_id])
+		@image = Image.new(image_params)
+
+		if @image.save
+			redirect_to @gallery	
+		else
+			render :new
+		end	
+	end
+
+	def edit
+		@gallery = Gallery.find(params[:gallery_id])
+		@image = Image.find(params[:id])		
 	end
 	
-end
+	def update
+		@gallery = Gallery.find(params[:gallery_id])
+		@image = @gallery.images.find(params[:id])
+
+		if @image.update(image_params)
+			redirect_to @gallery
+		else
+			render :edit
+		end
+	end
 
 	private
 
@@ -21,5 +39,4 @@ end
 			permit(:url).
 			merge(gallery_id: params[:gallery_id])
 	end
-
 end

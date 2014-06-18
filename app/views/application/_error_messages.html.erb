@@ -1,0 +1,8 @@
+<% if target.errors.any? %>
+	<h2>This form contains <%=pluralize target.errors.count, 'error' %> errors on this form:</h2>
+	<ul>
+		<% target.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+<% end %>
