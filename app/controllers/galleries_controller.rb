@@ -12,21 +12,23 @@ class GalleriesController < ApplicationController
 	end
 
 	def create
-		gallery = Gallery.new(gallery_params)
-		if gallery.save
-			redirect_to "/galleries/#{gallery.id}"
+		params_with_user_id = gallery_params.merge(
+			user_id: current_user.id
+			)
+		@gallery = Gallery.new(params_with_user_id)
+		if @gallery.save
+			redirect_to @gallery
 		else
-			@gallery = gallery
 			render :new
 		end
 	end
 
 	def edit
-		@gallery = Gallery.find(params[:id])
+		@gallery = current_user.galleries.find(params[:id])
 	end
 
 	def update
-		@gallery = Gallery.find(params[:id])
+		@gallery = current_user.galleries.find(params[:id])
 		if @gallery.update(gallery_params)
 			redirect_to @gallery
 		else
