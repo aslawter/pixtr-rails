@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   def show
-    @image = Image.fine(params[:id])
+    @image = Image.find(params[:id])
 
   end
 

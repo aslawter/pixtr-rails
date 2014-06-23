@@ -1,17 +1,18 @@
 <h2>This gallery proudly owned by <%= @gallery.user.email %>
 <h2><%= @gallery.name %></h2>
-<p><%= @gallery.description %></p>
-<% if current_user == @gallery.user %>
-	<%= link_to "Edit this gallery", [:edit, @gallery] %>
-	<%= link_to "Delete this gallery", @gallery, method: :delete %>
-	<%= link_to "Add an image", "/galleries/#{@gallery.id}/images/new" %>
+  <p><%= @gallery.description %></p>
+  <% if current_user == @gallery.user %>
+    <%= link_to "Edit this gallery", [:edit, @gallery] %>
+  <%= link_to "Delete this gallery", @gallery, method: :delete %>
+  <%= link_to "Add an image", "/galleries/#{@gallery.id}/images/new" %>
 <% end %>
 
-<% @gallery.images.each do |image| %>
-  <%= link_to image do %>
-    <%= image_tag image.url %>
-	<% if current_user == @gallery.user %>
-		<%= link_to "Edit image", [:edit, image] %>
-		<%= time_ago_in_words image.created_at %> ago
-	<% end %>
-<% end %>
+  <% @gallery.images.each do |image| %>
+    <%= link_to image do %>
+      <%= image_tag image.url %>
+      <%= time_ago_in_words image.created_at %> ago
+    <% end %>
+    <% if current_user == @gallery.user %>
+     <%= link_to "Edit image", [:edit, image] %>
+    <% end %>
+  <% end %>
