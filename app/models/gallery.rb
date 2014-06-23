@@ -1,4 +1,4 @@
-class Gallery < ActiveRecord::Base
+	class Gallery < ActiveRecord::Base
 	has_many :images
 	belongs_to :user
 	
