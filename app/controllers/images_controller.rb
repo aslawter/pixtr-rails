@@ -1,43 +1,39 @@
 class ImagesController < ApplicationController
-	def new
-		@gallery = Gallery.find(params[:gallery_id])
-		@image = Image.new
-	end
+  def new
+    @gallery = Gallery.find(params[:gallery_id])
+    @image = Image.new
+  end
 
-	def create
-		@gallery = current_user.galleries.find(params[:gallery_id])
-		@image = @gallery.images.new(image_params)
+  def create
+    @gallery = current_user.galleries.find(params[:gallery_id])
+    @image = @gallery.images.new(image_params)
 
-		if @image.save
-			redirect_to @gallery	
-		else
-			render :new
-		end	
-	end
+    if @image.save
+      redirect_to @gallery
+    else
+      render :new
+    end
+  end
 
-	def edit
-		@gallery = current_user.galleries.find(params[:gallery_id])
-		#@image = Image.find(params[:id])	
-		@image = @gallery.images.find(params[:id])	
-	end
-	
-	def update
-		@gallery = current_user.galleries.find(params[:gallery_id])
-		@image = @gallery.images.find(params[:id])
+  def edit
+    @image = current_user.images.find(params[:id])
+  end
 
-		if @image.update(image_params)
-			redirect_to @gallery
-		else
-			render :edit
-		end
-	end
+  def update
+    @image = current_user.images.find(params[:id])
 
-	private
+    if @image.update(image_params)
+      redirect_to @image.gallery
+    else
+      render :edit
+    end
+  end
 
-	def image_params
-		params.
-			require(:image).
-			permit(:url).
-			merge(gallery_id: params[:gallery_id])
-	end
+  private
+
+  def image_params
+    params.
+      require(:image).
+      permit(:url)
+  end
 end
