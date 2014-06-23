@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     resources :images, only: [:new, :create]
   end
 
-  resources :images, only: [:edit, :update]  
-  
+  resources :images, only: [:show, :edit, :update] do 
+    resources :comments, only: [:create]
+  end
+
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
 end

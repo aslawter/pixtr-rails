@@ -1,11 +1,12 @@
 class ImagesController < ApplicationController
   def show
     @image = Image.find(params[:id])
-
+    @comment = Comment.new
+    @comments = @image.comments.recent
   end
 
   def new
-    @gallery = Gallery.find(params[:gallery_id])
+    @gallery = current_user.galleries.find(params[:gallery_id])
     @image = Image.new
   end
 
