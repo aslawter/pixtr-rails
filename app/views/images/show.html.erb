@@ -1,10 +1,21 @@
 <%= image_tag @image.url %>
-<%= form_for [@image, @comment] do |form| %>
+
+<%= form_for [@image] do |form| %>
+  <%= form.collection_check_boxes :group_ids, @groups, :id, :name %>
+
+  <p></p>
+  <% @groups.each do |group| %>
+    <%= form.check_box :group_ids, value: group.id %>
+    <label><%= group.name %></label>
+  <% end %>
+<% end %>
+
+  <%= form_for [@image, @comment] do |form| %>
   <%= render "error_messages", target: @comment %>
   <div>
-  <%= form.label :body, "Comments" %>
-  <%= form.text_area :body %>
-</div>
+    <%= form.label :body, "Comments" %>
+    <%= form.text_area :body %>
+  </div>
 <div>
   <%= form.submit "Submit your comment" %>
 </div>

@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   resources :images, only: [:show, :edit, :update] do 
     resources :comments, only: [:create]
   end
-  resources :groups, only: [:new, :create, :index]
+
+  resources :groups, only: [:new, :create, :index, :show] do
+    resources :group_memberships, only: [:create]
+  end 
 
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]

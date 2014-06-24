@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :image
-  belongs_to :use  
+  belongs_to :user
 
   validates :user_id, presence: true
   validates :image_id, presence: true
