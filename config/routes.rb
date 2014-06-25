@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   end
 
   resources :groups, only: [:new, :create, :index, :show] do
-    resources :group_memberships, only: [:create]
+    resource :group_membership, only: [:create]
   end 
 
-  resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
+  resource :session, only: [:create, :destroy]
+  resources :users, only: [:create]
+
+  get "/sign_up", to: "users#new"
+  get "/sign_in", to: "sessions#new"
 end

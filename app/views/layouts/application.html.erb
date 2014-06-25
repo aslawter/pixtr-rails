@@ -12,11 +12,10 @@
 <% if signed_in? %>
   <%= button_to "Sign out", :session, method: :delete %>
   <div><%= link_to "Create a new group", [:new, :group] %></div>
-  <% unless controller_name == "users" && action_name == "new" %>
-  <%= link_to "Sign up" , [:new, :user] %>
-    <% end %>
-<%= link_to "Sign in" , [:new, :session] %>
-  <% end %>
+<% else %>
+  <%= link_to "Sign in" , sign_in_path %>
+  <%= link_to "Sign up" , sign_up_path %>
+<% end %>
 
 <%= yield %>
 </body>
