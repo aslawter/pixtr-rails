@@ -1,13 +1,18 @@
 <%= image_tag @image.url %>
-
+<% if !current_user.liked_images.include?(@image) %>
+  <%= button_to "Like this image", [@image, :like] %>
+<% else %>
+  <%= button_to "Unlike this image", [@image, :like], method: :delete %>
+<% end %>
+  
 <%= form_for [@image] do |form| %>
   <%= form.collection_check_boxes :group_ids, @groups, :id, :name %>
 
-  <p></p>
   <% @groups.each do |group| %>
     <%= form.check_box :group_ids, value: group.id %>
     <label><%= group.name %></label>
   <% end %>
+    <%= form.submit "Add to groups" %>
 <% end %>
 
   <%= form_for [@image, @comment] do |form| %>
@@ -19,6 +24,7 @@
 <div>
   <%= form.submit "Submit your comment" %>
 </div>
+
 <% end %>
 
 <% @comments.each do |comment| %>

@@ -1,20 +1,12 @@
-
 <div><%= link_to "Create a new group", [:new, :group] %></div>
 
-<h2>All Groups</h2>
+<h3>Your Groups</h3>
   <ul>
-    <% @groups.each do |group| %>
-      <li><%= render group %></li>
-      <% if ! current_user.member?(group) %>
-        <%= button_to "Join this group", [group, :group_membership] %>
-      <% end %>
-      </li>
-    <% end %>
+    <%= render @my_groups %>
   </ul>
 
-<h2>Your Groups</h2>
+<h3>All Groups</h3>
   <ul>
-    <% @my_groups.each do |group| %>
-      <li><%= render group %></li>
-    <% end %>
+    <%= render @groups %>
   </ul>
+
