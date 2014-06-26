@@ -10,34 +10,35 @@
    <%= button_to "Unlike this image", [@image, :like], method: :delete %>
   <% end %>
 </div>  
-
+<h3>Add this image to a group</h3>
 <%= form_for [@image] do |form| %>
   <%= form.collection_check_boxes :group_ids, @groups, :id, :name %>
-  <% @groups.each do |group| %>
-    <%= form.check_box :group_ids, value: group.id %>
-    <label><%= group.name %></label>
+  <%= form.submit "Add to groups" %>
+<% end %>
+
+<h3>Tag this image</h3>
+<div>
+  <%= link_to "Create a new tag", [:new, :tag] %>
+  <%= link_to "See all available tags", [:tags] %>
+  <%= form_for [@image] do |form| %>
+   <%= form.collection_check_boxes :tag_ids, @tags, :id, :name %>
+   <%= form.submit "Tag this image" %>
   <% end %>
-    <%= form.submit "Add to groups" %>
-<% end %>
-
-<%= form_for [:new, @image, :tag] do |form| %>
-  <%= form.label :name, "Tag name" %>
-  <%= form.text_field :name %>
-<% end %>
-
-
+</div>
+<h3>Add a comment to this image</h3>
+<div>
   <%= form_for [@image, @comment] do |form| %>
   <%= render "error_messages", target: @comment %>
-  <div>
-    <%= form.label :body, "Comments" %>
-    <%= form.text_area :body %>
+<div>
+  <%= form.label :body, "Comments" %>
+  <%= form.text_area :body %>
   </div>
 <div>
   <%= form.submit "Submit your comment" %>
 </div>
 
 <% end %>
-
+</div>
 <% @comments.each do |comment| %>
   <li>
     <p><%= comment.body %></p>
