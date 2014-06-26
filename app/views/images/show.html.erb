@@ -1,19 +1,30 @@
-<%= image_tag @image.url %>
-<% if !current_user.liked_images.include?(@image) %>
+<div>
+  <%= image_tag @image.url %>
+</div>
+
+<div>
+  This many people like this image <strong><%=@image.likes.count %></strong>
+  <% if !current_user.likes?(@image) %>
   <%= button_to "Like this image", [@image, :like] %>
-<% else %>
-  <%= button_to "Unlike this image", [@image, :like], method: :delete %>
-<% end %>
-  
+  <% else %>
+   <%= button_to "Unlike this image", [@image, :like], method: :delete %>
+  <% end %>
+</div>  
+
 <%= form_for [@image] do |form| %>
   <%= form.collection_check_boxes :group_ids, @groups, :id, :name %>
-
   <% @groups.each do |group| %>
     <%= form.check_box :group_ids, value: group.id %>
     <label><%= group.name %></label>
   <% end %>
     <%= form.submit "Add to groups" %>
 <% end %>
+
+<%= form_for [:new, @image, :tag] do |form| %>
+  <%= form.label :name, "Tag name" %>
+  <%= form.text_field :name %>
+<% end %>
+
 
   <%= form_for [@image, @comment] do |form| %>
   <%= render "error_messages", target: @comment %>

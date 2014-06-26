@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     liked_images << image
   end
 
+  def likes?(image)
+   liked_images.include?(image)
+  end
+
   def unlike(image)
     liked_images.destroy(image)
   end
