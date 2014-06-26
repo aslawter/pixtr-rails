@@ -1,1 +1,4 @@
-
+<h3>Images tagged with:<%= @tag.name %></h3>
+  <% @images.each do |image| %>
+    <%= image_tag image.url %>
+<% end %>

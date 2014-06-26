@@ -2,9 +2,11 @@ class TagsController < ApplicationController
   def index
     @tags = Tag.all
   end
-  
-  def show
-  
+
+  def show 
+    @tag = Tag.find(params[:id])
+    @images = @tag.images
+
   end
 
   def new 
@@ -16,11 +18,11 @@ class TagsController < ApplicationController
     @tag.save
   end
 
-private
+  private
 
   def tag_params
     params.require(:tag).permit(
-     :name,
-      )
+      :name,
+    )
   end
 end
