@@ -9,8 +9,12 @@
 
   <% @gallery.images.each do |image| %>
     <%= link_to image do %>
-      <%= image_tag image.url %>
-      <%= time_ago_in_words image.created_at %> ago
+      <div>
+        <%= image_tag image.url %>
+      </div>
+      <div>
+        This image was added <%= time_ago_in_words image.created_at %> ago
+      </div>
     <% end %>
     <% if current_user == @gallery.user %>
      <%= link_to "Edit image", [:edit, image] %>
