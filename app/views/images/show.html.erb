@@ -11,6 +11,7 @@
   <% end %>
 </div>  
 <h3>Add this image to a group</h3>
+<%= link_to "Create a new group name", [:new, :group] %>
 <%= form_for [@image] do |form| %>
   <%= form.collection_check_boxes :group_ids, @groups, :id, :name %>
   <%= form.submit "Add to groups" %>

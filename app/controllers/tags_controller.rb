@@ -15,7 +15,11 @@ class TagsController < ApplicationController
 
   def create 
     @tag = Tag.new(tag_params)
-    @tag.save
+    if @tag.save
+      redirect_to :tags 
+    else
+      render :new
+    end
   end
 
   private
